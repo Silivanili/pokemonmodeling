@@ -1,0 +1,59 @@
+@startuml
+
+class Pokemon
+
+class Battle
+
+class Move
+
+Class VM
+
+class Pokedex
+
+class Trainer
+
+class Settlement
+
+class Map
+
+class Item
+
+class Building
+
+class Route
+
+class Water
+
+
+Trainer ---> Pokemon: owns
+
+Trainer ---> Item: owns
+
+Trainer ---> Map: owns
+
+Trainer ---> Pokedex: owns
+
+Trainer ---> Settlement: can reach
+
+Trainer ---> Route: can reach
+
+Map ---> Settlement: displayed on
+
+Map ---> Route: displayed on 
+
+Map ---> Water: displayed on
+
+Settlement ---> Building: has 
+
+Pokemon ---> Battle: do
+
+Pokemon ---> Move: use 
+
+Battle ---> Move: use
+
+Move ---> VM: is type of (usable outside of Battle!)
+
+
+
+
+@enduml
