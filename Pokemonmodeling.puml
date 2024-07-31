@@ -12,7 +12,11 @@ class Pokedex
 
 class Trainer
 
+class Bike 
+
 class Settlement
+
+class SeperatedAreaOnRoutes
 
 class Map
 
@@ -25,13 +29,15 @@ class Route
 class Water
 
 
-Trainer ---> Pokemon: owns
+Trainer o---> Pokemon: owns
 
-Trainer ---> Item: owns
+Trainer o---> Item: owns
 
-Trainer ---> Map: owns
+Trainer *---> Map: owns
 
-Trainer ---> Pokedex: owns
+Trainer *---> Pokedex: owns
+
+Trainer *---> Bike: owns
 
 Trainer ---> Settlement: can reach
 
@@ -43,17 +49,15 @@ Map ---> Route: displayed on
 
 Map ---> Water: displayed on
 
-Settlement ---> Building: has 
+Settlement *---> Building: has 
 
-Pokemon ---> Battle: do
+Pokemon *---> Battle: do
 
-Pokemon ---> Move: use 
+Pokemon *---> Move: use 
 
-Battle ---> Move: use
+Battle o---> Move: use
 
-Move ---> VM: is type of (usable outside of Battle!)
-
-
+Move *---> VM: is type of (usable outside of Battle!)
 
 
 @enduml
