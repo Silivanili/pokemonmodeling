@@ -8,10 +8,12 @@ class Pokemon {
     powerPoints: int
     attack: int
     defence: int
+    moves: list 
     levelUp()
     evolve()
     battle()
     useMove()
+    useVM()
 
 }
 
@@ -23,46 +25,60 @@ class Pokedex {
     PokemonDescription: str
     callable()
 
-
 }
 
-class Trainer {
+class Player {
     name: str
     gender: str 
     badges: int
     pokemon: list 
     items: list 
     buyItem()
+    useItem()
     catchPokemon()
     winBattle()
     looseBattle()
+    walk()
+
+}
+
+class NPC {
+    priceMoney: int 
+    interact()
 
 }
 
 class Bike {
     velocity: const
-    use()
     ride()
 
 }
+
 class Location {
+    hasWildPokemon: bool
+    hasTrainerBattles: bool 
 
 }
 
+class Cave {
+    darkness()
+    PokemonBattle()
+
+}
 
 class Settlement {
     buildings: int 
-    goInBuilding()
     interactWithPeople()
+    EnterBuilding()
 
 }
 
 class Map {
     location: list 
+    playerOnMap()
     callable()
 
 }
-
 
 class Item {
     price: int
@@ -72,46 +88,85 @@ class Item {
     useOutsideOfBattle()
 }
 
-class Building
+class Building {
+    buildingType: str 
 
-class Route
+}
 
-class Potion 
+class Route {
+    battle()
 
-class Pokeball
+}
+
+class Potion {
+    heal: int 
+    healsPokemon()
+}
+
+class Pokeball {
+    catchrate: int 
+    catchesPokemon()
+}
+
+class Pokemarket {
+    sellsItems()
+
+}
+
+class Pokecenter {
+    healsPokemon()
+}
+
+class Pokegym {
+    fightTrainers()
+}
+
+class Pokeleague {
+    fightTrainers()
+}
 
 
-Trainer o--> Pokemon: owns
+Pokemon *--> Pokedex: displayed on
 
-Trainer o--> Item: owns
+Player "1" o--> "0..6" Pokemon: owns / encounters
+
+Player "1" o--> "0..n" Item: owns
+
+Player "1" <|-- "n" NPC
+
+NPC o--> Pokemon: can own 
+
+Location *--> NPC: can be found 
 
 Item <|-- Pokeball: type of 
 
 Item <|-- Potion: type of 
 
-Trainer *--> Map: owns
+Player "1" *--> "0..1" Map: owns
 
-Trainer *--> Pokedex: owns
+Player "1" *--> "0..1" Pokedex: owns
 
-Trainer *--> Bike: owns
+Player "1" *--> "0..1" Bike: owns
 
-Trainer --> Settlement: can reach
+Player "1" --> "n" Location: can reach
 
-Trainer --> Route: can reach
+Location "1" <|-- "1" Route: type of 
 
-Map --> Settlement: displayed on
+Location "1" <|-- "1" Settlement: type of 
 
-Map --> Route: displayed on 
+Location "1" <|-- "1" Cave: type of 
 
-Settlement <|-- Building: has 
+Location *--> Map: displayed on
 
-Pokemon *--> Battle: do
+Settlement "1" <|-- "n" Building: has 
 
-Pokemon *--> Move: use 
+Building <|-- Pokemarket: type of 
 
-Battle o--> Move: use
+Building <|-- Pokecenter: type of
 
-Move *--> VM: is type of (usable outside of Battle!)
+Building <|-- Pokeleague: type of
+
+Building <|-- Pokegym: type of
 
 
 @enduml
