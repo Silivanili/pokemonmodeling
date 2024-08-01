@@ -1,63 +1,117 @@
 @startuml
 
-class Pokemon
+class Pokemon {
+    name: str
+    level: int
+    type: str
+    healthPoints: int
+    powerPoints: int
+    attack: int
+    defence: int
+    levelUp()
+    evolve()
+    battle()
+    useMove()
 
-class Battle
+}
 
-class Move
+class Pokedex {
+    PokemonID: int
+    PokemonWeight: int
+    PokemonHeight: int
+    PokemonLocation: str
+    PokemonDescription: str
+    callable()
 
-Class VM
 
-class Pokedex
+}
 
-class Trainer
+class Trainer {
+    name: str
+    gender: str 
+    badges: int
+    pokemon: list 
+    items: list 
+    buyItem()
+    catchPokemon()
+    winBattle()
+    looseBattle()
 
-class Bike 
+}
 
-class Settlement
+class Bike {
+    velocity: const
+    use()
+    ride()
 
-class SeperatedAreaOnRoutes
+}
+class Location {
 
-class Map
+}
 
-class Item
+
+class Settlement {
+    buildings: int 
+    goInBuilding()
+    interactWithPeople()
+
+}
+
+class Map {
+    location: list 
+    callable()
+
+}
+
+
+class Item {
+    price: int
+    effect: str 
+    ammount: int 
+    useInBattle()
+    useOutsideOfBattle()
+}
 
 class Building
 
 class Route
 
-class Water
+class Potion 
+
+class Pokeball
 
 
-Trainer o---> Pokemon: owns
+Trainer o--> Pokemon: owns
 
-Trainer o---> Item: owns
+Trainer o--> Item: owns
 
-Trainer *---> Map: owns
+Item <|-- Pokeball: type of 
 
-Trainer *---> Pokedex: owns
+Item <|-- Potion: type of 
 
-Trainer *---> Bike: owns
+Trainer *--> Map: owns
 
-Trainer ---> Settlement: can reach
+Trainer *--> Pokedex: owns
 
-Trainer ---> Route: can reach
+Trainer *--> Bike: owns
 
-Map ---> Settlement: displayed on
+Trainer --> Settlement: can reach
 
-Map ---> Route: displayed on 
+Trainer --> Route: can reach
 
-Map ---> Water: displayed on
+Map --> Settlement: displayed on
 
-Settlement *---> Building: has 
+Map --> Route: displayed on 
 
-Pokemon *---> Battle: do
+Settlement <|-- Building: has 
 
-Pokemon *---> Move: use 
+Pokemon *--> Battle: do
 
-Battle o---> Move: use
+Pokemon *--> Move: use 
 
-Move *---> VM: is type of (usable outside of Battle!)
+Battle o--> Move: use
+
+Move *--> VM: is type of (usable outside of Battle!)
 
 
 @enduml
