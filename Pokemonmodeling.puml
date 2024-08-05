@@ -3,17 +3,14 @@
 class Pokemon {
     name: str
     level: int
-    type: str
     healthPoints: int
     powerPoints: int
     attack: int
     defence: int
     moves: list 
-    levelUp()
-    evolve()
-    battle()
-    useMove()
-    useVM()
+    }
+
+class Character {
 
 }
 
@@ -23,34 +20,24 @@ class Pokedex {
     PokemonHeight: int
     PokemonLocation: str
     PokemonDescription: str
-    callable()
 
 }
 
-class Player {
+class Player_character{
     name: str
     gender: str 
     badges: int
-    pokemon: list 
     items: list 
-    buyItem()
-    useItem()
-    catchPokemon()
-    winBattle()
-    looseBattle()
-    walk()
 
 }
 
-class NPC {
+class Non_player_character {
     priceMoney: int 
-    interact()
 
 }
 
 class Bike {
     velocity: const
-    ride()
 
 }
 
@@ -61,22 +48,16 @@ class Location {
 }
 
 class Cave {
-    darkness()
-    PokemonBattle()
 
 }
 
 class Settlement {
     buildings: int 
-    interactWithPeople()
-    EnterBuilding()
 
 }
 
 class Map {
     location: list 
-    playerOnMap()
-    callable()
 
 }
 
@@ -84,8 +65,7 @@ class Item {
     price: int
     effect: str 
     ammount: int 
-    useInBattle()
-    useOutsideOfBattle()
+
 }
 
 class Building {
@@ -94,79 +74,120 @@ class Building {
 }
 
 class Route {
-    battle()
 
 }
 
 class Potion {
     heal: int 
-    healsPokemon()
 }
 
 class Pokeball {
     catchrate: int 
-    catchesPokemon()
 }
 
 class Pokemarket {
-    sellsItems()
 
 }
 
 class Pokecenter {
-    healsPokemon()
 }
 
 class Pokegym {
-    fightTrainers()
 }
 
 class Pokeleague {
-    fightTrainers()
+}
+
+class Pokemon_Species {
+}
+
+class Element{
+
+}
+
+class Connection {
+
+}
+
+class Location_with_building {
+
+}
+
+class Location_with_wild_pokemon {
+
+}
+
+class Location_with_trainer_battle {
+
+}
+
+class Possible_pokemon_species {
+    possibility: int 
 }
 
 
-Pokemon *--> Pokedex: displayed on
+Character <|-- Player_character
 
-Player "1" o--> "0..6" Pokemon: owns / encounters
+Character <|-- Non_player_character
 
-Player "1" o--> "0..n" Item: owns
+Character "0..1" o--> "0..6" Pokemon: owns Pokemon
 
-Player "1" <|-- "n" NPC
+Character "0..1" o--> "0..n" Item: owns Item
 
-NPC o--> Pokemon: can own 
+Character "0..n" *--> "1..n" Location: can be found 
 
-Location *--> NPC: can be found 
+Item <|-- Pokeball
 
-Item <|-- Pokeball: type of 
+Item <|-- Potion
 
-Item <|-- Potion: type of 
+Item "1" *--> "0..1" Map: owns
 
-Player "1" *--> "0..1" Map: owns
+Item "1" *--> "0..1" Pokedex: owns Pokedex
 
-Player "1" *--> "0..1" Pokedex: owns
+Item "1" *--> "0..1" Bike: owns
 
-Player "1" *--> "0..1" Bike: owns
+Character "1" --> "0..8" Pokegym: has won in
 
-Player "1" --> "n" Location: can reach
+Location_with_building <|-- Route
 
-Location "1" <|-- "1" Route: type of 
+Location_with_trainer_battle <|-- Route
 
-Location "1" <|-- "1" Settlement: type of 
+Location_with_building  <|-- Settlement
 
-Location "1" <|-- "1" Cave: type of 
+Location <|-- Location_with_building
 
-Location *--> Map: displayed on
+Location_with_trainer_battle <|-- Cave
 
-Settlement "1" <|-- "n" Building: has 
+Location_with_wild_pokemon <|-- Cave
 
-Building <|-- Pokemarket: type of 
+Location_with_wild_pokemon <|-- Route
 
-Building <|-- Pokecenter: type of
+Location_with_trainer_battle <|-- Settlement
 
-Building <|-- Pokeleague: type of
+Settlement *-->  Building: contains
 
-Building <|-- Pokegym: type of
+Building <|-- Pokemarket
 
+Building <|-- Pokecenter
+
+Building <|-- Pokeleague
+
+Building <|-- Pokegym
+
+Pokemon_Species --> Location: can occur  
+
+Pokemon_Species "1" *--> "1..n" Pokemon: is Species
+
+Pokedex "0..n" --> "0..n" Pokemon_Species: has seen
+
+Pokemon_Species "1..n" --> "1..2" Element: has Element 
+
+Connection "1..n" --> "0..2" Location: transition
+
+Route "0..1" *--> "0..1" Building: has Building
+
+Location "1" *--> "0..n" Possible_pokemon_species: contains possible Pokemon Species
+
+Possible_pokemon_species "0..n" --> "1" Pokemon_Species: can occur 
 
 @enduml
