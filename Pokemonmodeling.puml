@@ -25,8 +25,7 @@ class Pokedex {
 
 class Player_character{
     name: str
-    gender: str 
-    badges: int
+    gender: male | female | divers 
     items: list 
 
 }
@@ -93,6 +92,8 @@ class Pokecenter {
 }
 
 class Pokegym {
+    badges: int
+
 }
 
 class Pokeleague {
@@ -124,6 +125,14 @@ class Location_with_trainer_battle {
 class Possible_pokemon_species {
     possibility: int 
 }
+
+class Item_Location {
+    Xkoordinate: int
+    Ykoordinate: int 
+
+
+}
+
 
 
 Character <|-- Player_character
@@ -188,6 +197,20 @@ Route "0..1" *--> "0..1" Building: has Building
 
 Location "1" *--> "0..n" Possible_pokemon_species: contains possible Pokemon Species
 
+Location "1" <|-- "0..n" Location_with_building: contains possible Pokemon Species
+
+Location "1" <|-- "0..n" Location_with_trainer_battle: contains possible Trainer Battles
+
+Location "1" <|-- "0..n" Location_with_wild_pokemon: contains possible wild Pokemon
+
 Possible_pokemon_species "0..n" --> "1" Pokemon_Species: can occur 
+
+Pokedex "0..n" --> "1..n" Possible_pokemon_species: displays occurence
+
+Pokegym <|-- Pokeleague: is type of Pogegym
+
+Item --> Item_Location: contains possbile Items in Location 
+
+Item_Location --> Location: can occur 
 
 @enduml
