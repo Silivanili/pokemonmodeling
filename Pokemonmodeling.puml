@@ -56,7 +56,6 @@ class Settlement {
 }
 
 class Map {
-    location: list 
 
 }
 
@@ -126,14 +125,24 @@ class Possible_pokemon_species {
     possibility: int 
 }
 
-class Item_Location {
+class Item_Spot {
     Xkoordinate: int
     Ykoordinate: int 
-
 
 }
 
 
+
+class Spot {
+    Xkoordinate: int
+    Ykoordinate: int
+}
+
+
+class Timestep {
+    Time: int 
+
+}
 
 Character <|-- Player_character
 
@@ -143,17 +152,17 @@ Character "0..1" o--> "0..6" Pokemon: owns Pokemon
 
 Character "0..1" o--> "0..n" Item: owns Item
 
-Character "0..n" *--> "1..n" Location: can be found 
+Spot "1..n" --> "1" Character: can be found on
 
 Item <|-- Pokeball
 
 Item <|-- Potion
 
-Item "1" *--> "0..1" Map: owns
+Item <|-- Map
 
-Item "1" *--> "0..1" Pokedex: owns Pokedex
+Item <|-- Pokedex
 
-Item "1" *--> "0..1" Bike: owns
+Item <|-- Bike
 
 Character "1" --> "0..8" Pokegym: has won in
 
@@ -173,7 +182,7 @@ Location_with_wild_pokemon <|-- Route
 
 Location_with_trainer_battle <|-- Settlement
 
-Settlement *-->  Building: contains
+Settlement "1" *--> "1..n" Building: contains
 
 Building <|-- Pokemarket
 
@@ -189,7 +198,7 @@ Pokemon_Species "1" *--> "1..n" Pokemon: is Species
 
 Pokedex "0..n" --> "0..n" Pokemon_Species: has seen
 
-Pokemon_Species "1..n" --> "1..2" Element: has Element 
+Pokemon_Species "1..n" *--> "1..2" Element: has Element 
 
 Connection "1..n" --> "0..2" Location: transition
 
@@ -197,11 +206,9 @@ Route "0..1" *--> "0..1" Building: has Building
 
 Location "1" *--> "0..n" Possible_pokemon_species: contains possible Pokemon Species
 
-Location "1" <|-- "0..n" Location_with_building: contains possible Pokemon Species
+Location <|-- Location_with_trainer_battle: contains possible Trainer Battles
 
-Location "1" <|-- "0..n" Location_with_trainer_battle: contains possible Trainer Battles
-
-Location "1" <|-- "0..n" Location_with_wild_pokemon: contains possible wild Pokemon
+Location <|-- Location_with_wild_pokemon: contains possible wild Pokemon
 
 Possible_pokemon_species "0..n" --> "1" Pokemon_Species: can occur 
 
@@ -209,8 +216,14 @@ Pokedex "0..n" --> "1..n" Possible_pokemon_species: displays occurence
 
 Pokegym <|-- Pokeleague: is type of Pogegym
 
-Item --> Item_Location: contains possbile Items in Location 
+ Item_Spot "0..n" --> "1" Item: contains possbile Items in Location 
 
-Item_Location --> Location: can occur 
+Location "1" *--> "1..n" Spot: has a spot 
+
+Spot <|-- Item_Spot 
+
+Timestep "1"--> "*" Spot: elapse 
+
+Timestep "1" --> "*" Character: experiences
 
 @enduml
